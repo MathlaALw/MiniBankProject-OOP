@@ -78,6 +78,23 @@ namespace MiniBankProject_OOP
         }
 
 
+        // Display Account info method
+        public void Display()
+        {
+            Console.WriteLine("Account Information:");
+            Console.WriteLine("Account :" + AccountNumber);
+            Console.WriteLine("Name: " + Name);
+            Console.WriteLine("National ID: " + NationalId);
+            Console.WriteLine("Balance: " + Balance.ToString("C2")); // Format as currency
+            Console.WriteLine("User Type: " + UserType);
+            Console.WriteLine("Phone: " + Phone);
+            Console.WriteLine("Address: " + Address);
+            Console.WriteLine("Account Locked: " + (IsLocked ? "Yes" : "No"));
+
+
+        }
+
+
 
     }
 }

@@ -42,6 +42,20 @@ namespace MiniBankProject_OOP
         }
 
 
+        // Deposit method
+        public void Deposit(double amount)
+        {
+            if (amount > 0)
+            {
+                Balance += amount;
+            }
+            else
+            {
+                Console.WriteLine("Deposit amount must be greater than zero.");
+            }
+        }
+
+       
 
     }
 }

@@ -35,6 +35,13 @@ namespace MiniBankProject_OOP
             IsLocked = false;
         }
 
-        
+        // Check password method
+        public bool CheckPassword(string hashedInput)
+        {
+            return hashedInput == HashedPassword;
+        }
+
+
+
     }
 }

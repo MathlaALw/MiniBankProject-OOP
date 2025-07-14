@@ -55,7 +55,29 @@ namespace MiniBankProject_OOP
             }
         }
 
-       
+
+        // Withdraw method
+        public bool Withdraw(double amount, double minBalance)
+        {
+            if (amount <= 0)
+            {
+                Console.WriteLine("Withdrawal amount must be greater than zero.");
+                return false;
+            }
+
+            if (Balance - amount >= minBalance)
+            {
+                Balance -= amount;
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Cannot withdraw " + amount + ". Minimum balance of {minBalance} must be maintained.");
+                return false;
+            }
+        }
+
+
 
     }
 }

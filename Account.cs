@@ -10,21 +10,116 @@ namespace MiniBankProject_OOP
     {
 
         // Properties
+        // Account number property
+        private static int nextAccountNumber = 1; // starting number 
         public int AccountNumber { get; private set; }
-        public string Name { get; private set; }
-        public string NationalId { get; private set; }
-        public double Balance { get; private set; }
+
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value) || value.Length < 3)
+                    Console.WriteLine("Name must be at least 3 characters.");
+                name = value;
+            }
+        }
+
+        private string nationalId;
+        public string NationalId
+        {
+            get
+            {
+                return nationalId;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    Console.WriteLine("National ID cannot be null or empty.");
+                if (!value.All(char.IsDigit))
+                    Console.WriteLine("National ID should contain only digits.");
+                if (value.Length != 8)
+                    Console.WriteLine("National ID should be exactly 8 digits.");
+                nationalId = value;
+            }
+        }
+
+        private double balance;
+        public double Balance
+        {
+            get
+            {
+                return balance;
+
+            }
+            set
+            {
+                if (value < 100)
+                    Console.WriteLine("Initial balance must be at least 100 OMR.");
+                balance = value;
+            }
+        }
+
         public string UserType { get; set; }
         public bool IsLocked { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
+
+        private string phone;
+        public string Phone
+        {
+            get
+            {
+                return phone;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value) || value.Length < 8 || value.Length > 12 || !value.All(char.IsDigit))
+                    Console.WriteLine("Phone must be 8-12 digits and numeric.");
+                phone = value;
+            }
+        }
+
+        private string address;
+        public string Address
+        {
+            get
+            {
+                return address;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    Console.WriteLine("Address cannot be empty.");
+                address = value;
+            }
+        }
 
         private string HashedPassword;
 
-        // Constructor
-        public Account(int number, string name, string nid, double balance, string userType, string passwordHash, string phone, string address)
+        public string Password
         {
-            AccountNumber = number;
+            get
+            {
+                return HashedPassword;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value) || value.Length < 6)
+                    Console.WriteLine("Password must be at least 6 characters.");
+                HashedPassword = value; // In a real application, you would hash the password here.
+            }
+        }
+
+
+
+
+        // Constructor
+        public Account(string name, string nid, double balance, string userType, string passwordHash, string phone, string address)
+        {
+            AccountNumber = nextAccountNumber++;
             Name = name;
             NationalId = nid;
             Balance = balance;
@@ -33,67 +128,14 @@ namespace MiniBankProject_OOP
             Phone = phone;
             Address = address;
             IsLocked = false;
-        }
-
-        // Check password method
-        public bool CheckPassword(string hashedInput)
-        {
-            return hashedInput == HashedPassword;
-        }
-
-
-        // Deposit method
-        public void Deposit(double amount)
-        {
-            if (amount > 0)
-            {
-                Balance += amount;
-            }
-            else
-            {
-                Console.WriteLine("Deposit amount must be greater than zero.");
-            }
-        }
-
-
-        // Withdraw method
-        public bool Withdraw(double amount, double minBalance)
-        {
-            if (amount <= 0)
-            {
-                Console.WriteLine("Withdrawal amount must be greater than zero.");
-                return false;
-            }
-
-            if (Balance - amount >= minBalance)
-            {
-                Balance -= amount;
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Cannot withdraw " + amount + ". Minimum balance of {minBalance} must be maintained.");
-                return false;
-            }
-        }
-
-
-        // Display Account info method
-        public void Display()
-        {
-            Console.WriteLine("Account Information:");
-            Console.WriteLine("Account :" + AccountNumber);
-            Console.WriteLine("Name: " + Name);
-            Console.WriteLine("National ID: " + NationalId);
-            Console.WriteLine("Balance: " + Balance.ToString("C2")); // Format as currency
-            Console.WriteLine("User Type: " + UserType);
-            Console.WriteLine("Phone: " + Phone);
-            Console.WriteLine("Address: " + Address);
-            Console.WriteLine("Account Locked: " + (IsLocked ? "Yes" : "No"));
 
 
         }
 
+        
+
+
+       
 
 
     }
